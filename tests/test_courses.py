@@ -10,11 +10,15 @@ def test_empty_courses_list(courses_page: CoursesPage):
                 'https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses'
         )
 
+        courses_page.navbar.check_visible(name='username')
+        courses_page.sidebar.check_visible()
+
         courses_page.check_url(expected_url='/#/courses')
         courses_page.check_visible_courses_title()
         courses_page.check_empty_view_icon()
         courses_page.check_empty_view_description_text()
         courses_page.check_there_is_no_results_text()
+        courses_page.check_visible_create_course_button()
 
 @pytest.mark.regression
 @pytest.mark.courses
