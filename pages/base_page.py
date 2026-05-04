@@ -11,3 +11,6 @@ class BasePage:
 
     def check_url(self, expected_url: str):
         expect(self.page).to_have_url(re.compile(fr".*{expected_url}$"))
+
+    def refresh_page(self):
+        self.page.reload()
