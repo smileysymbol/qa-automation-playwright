@@ -1,10 +1,16 @@
 from playwright.sync_api import Page, expect
+
+from components.navigation.navbar_component import NavbarComponent
+from components.navigation.sidebar_component import SidebarComponent
 from pages.base_page import BasePage
 
 
 class CoursesPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
+
+        self.navbar = NavbarComponent(page)
+        self.sidebar = SidebarComponent(page)
 
         self.courses_title = page.get_by_test_id('courses-list-toolbar-title-text')
         self.empty_courses_list_text = page.get_by_test_id('courses-list-empty-view-title-text')
@@ -43,6 +49,7 @@ class CoursesPage(BasePage):
             max_score: str,
             min_score: str
     ):
+
         course_title = self.page.get_by_test_id('course-widget-title-text').nth(index)
         course_max_score = self.page.get_by_test_id('course-max-score-info-row-view-text').nth(index)
         course_min_score = self.page.get_by_test_id('course-min-score-info-row-view-text').nth(index)
