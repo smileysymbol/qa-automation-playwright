@@ -1,0 +1,2 @@
+class AllureEpic:
+    LMS = 'LMS'
