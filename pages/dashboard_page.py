@@ -1,3 +1,4 @@
+import allure
 from playwright.sync_api import Page, expect
 from components.navigation.navbar_component import NavbarComponent
 from components.navigation.sidebar_component import SidebarComponent
@@ -13,5 +14,6 @@ class DashboardPage(BasePage):
         self.dashboard_text = page.get_by_test_id('dashboard-toolbar-title-text')
 
     def check_visible_text(self):
-        expect(self.dashboard_text).to_be_visible()
-        expect(self.dashboard_text).to_have_text('Dashboard')
+        with allure.step('Check dashboard text is visible and have text "Dashboard"'):
+            expect(self.dashboard_text).to_be_visible()
+            expect(self.dashboard_text).to_have_text('Dashboard')

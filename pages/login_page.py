@@ -1,3 +1,4 @@
+import allure
 from playwright.sync_api import expect, Page
 from pages.base_page import BasePage
 
@@ -6,7 +7,6 @@ class LoginPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        self.page = page
         self.email_input = page.get_by_test_id('login-form-email-input').locator('input')
         self.password_input = page.get_by_test_id('login-form-password-input').locator('input')
         self.login_button = page.get_by_test_id('login-page-login-button')
@@ -14,8 +14,9 @@ class LoginPage(BasePage):
         self.wrong_email_or_password_alert = page.get_by_test_id('login-page-wrong-email-or-password-alert')
 
     def fill_authorization_form(self, mail, password):
-        self.email_input.fill(mail)
-        expect(self.email_input).to_have_value(mail)
+        with allure.step(f'Fill the authorization form with {mail}, {password}'):
+            self.email_input.fill(mail)
+            expect(self.email_input).to_have_value(mail)
 
         self.password_input.fill(password)
         expect(self.password_input).to_have_value(password)
@@ -27,6 +28,7 @@ class LoginPage(BasePage):
         self.registration_link.click()
 
     def check_wrong_email_or_password_alert(self):
-        expect(self.wrong_email_or_password_alert).to_be_visible()
-        expect(self.wrong_email_or_password_alert).to_have_text('Wrong email or password')
+        with allure.step('Check the password or email were wrong'):
+            expect(self.wrong_email_or_password_alert).to_be_visible()
+            expect(self.wrong_email_or_password_alert).to_have_text('Wrong email or password')
 
